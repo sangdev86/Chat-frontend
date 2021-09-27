@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import Chat from "./components/Chat/Chat";
+import {
+	BrowserRouter as Router,
+	Route,
+	Switch,
+} from "react-router-dom";
+import ProtectedRoute from "./Router/ProtectedRoute";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+	faSmile,
+	faImage,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+	faSpinner,
+	faEllipsisV,
+	faUserPlus,
+	faSignOutAlt,
+	faTrash,
+	faCaretDown,
+	faUpload,
+	faTimes,
+	faBell,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(
+	faSmile,
+	faImage,
+	faSpinner,
+	faEllipsisV,
+	faUserPlus,
+	faSignOutAlt,
+	faTrash,
+	faCaretDown,
+	faUpload,
+	faTimes,
+	faBell
+);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<Router>
+			<div className="App">
+				<Switch>
+					<ProtectedRoute exact path="/" component={Chat} />
+					<Route exact path="/login" component={Login} />
+					<Route
+						exact
+						path="/register"
+						component={Register}
+					/>
+					<Route
+						render={() => {
+							<h1>404 Page not found</h1>;
+						}}
+					/>
+				</Switch>
+			</div>
+		</Router>
+	);
 }
 
 export default App;

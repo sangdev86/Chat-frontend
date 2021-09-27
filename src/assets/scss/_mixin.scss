@@ -1,0 +1,60 @@
+//var
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+//function
+@mixin MediaQuery($type, $maxMin) {
+	@if ($maxMin == max) {
+		@if $type == $sm {
+			@media screen and (max-width: $sm - 1px) {
+				@content;
+			}
+		} @else if $type == $md {
+			@media screen and (max-width: $md - 1px) {
+				@content;
+			}
+		} @else if $type == $lg {
+			@media screen and (max-width: $lg - 1px) {
+				@content;
+			}
+		} @else if $type == $xl {
+			@media screen and (max-width: $xl - 1px) {
+				@content;
+			}
+		} @else {
+			@media screen and (max-width: $type) {
+				@content;
+			}
+		}
+	} @else if($maxMin == min) {
+		@if $type == $sm {
+			@media screen and (min-width: $sm) {
+				@content;
+			}
+		} @else if $type == $md {
+			@media screen and (min-width: $md) {
+				@content;
+			}
+		} @else if $type == $lg {
+			@media screen and (min-width: $lg) {
+				@content;
+			}
+		} @else if $type == $xl {
+			@media screen and (min-width: $xl) {
+				@content;
+			}
+		} @else {
+			@media screen and (min-width: $type) {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin text($color, $fs, $fw) {
+	color: $color;
+	font-size: $fs;
+	font-weight: $fw;
+}

@@ -1,0 +1,5 @@
+export const AUTH = {
+	LOGIN: "AUTH/LOGIN",
+	REGISTER: "AUTH/REGISTER",
+	LOGOUT: "AUTH/LOGOUT",
+};
