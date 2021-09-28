@@ -58,3 +58,23 @@ $xl: 1200px;
 	font-size: $fs;
 	font-weight: $fw;
 }
+
+@mixin borderRadius(
+	$top-left: 0,
+	$top-right: 0,
+	$bottom-left: 0,
+	$bottom-right: 0
+) {
+	@if ($top-left != 0) {
+		border-top-left-radius: $top-left;
+	}
+	@if ($top-right != 0) {
+		border-top-right-radius: $top-right;
+	}
+	@if ($bottom-left != 0) {
+		border-bottom-left-radius: $bottom-left;
+	}
+	@if ($bottom-right != 0) {
+		border-bottom-right-radius: $bottom-right;
+	}
+}
