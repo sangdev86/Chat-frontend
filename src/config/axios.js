@@ -1,14 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 
 const contentType = {
-	json: "application/json",
-	formData: "multipart/form-data",
+	json: 'application/json',
+	formData: 'multipart/form-data',
+	// formData: 'application/x-www-form-urlencoded',
 };
-// const baseURL = `${process.env.APP_URL}`;
-const baseURL = "http://127.0.0.1:8000";
+const baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 // token
-export const token = localStorage.getItem("token");
+const token = localStorage.getItem('token');
 
 // resquet 1
 export const callAPI = async (
@@ -17,6 +17,7 @@ export const callAPI = async (
 	data,
 	formData = false
 ) => {
+	const token = localStorage.getItem('token');
 	try {
 		const res = await axios({
 			url: baseURL + endpoint,
@@ -24,10 +25,12 @@ export const callAPI = async (
 			data: data,
 			headers: {
 				Authorization:
-					token !== null ? `Bearer ${token}` : "",
-				"Content-Type": formData
-					? contentType.formData
-					: contentType.json,
+					token !== null ? `Bearer ${token}` : '',
+				'Access-Control-Allow-Origin': '*',
+				'Content-Type':
+					formData === 'formData'
+						? contentType.formData
+						: contentType.json,
 			},
 		});
 		const { status } = res;
@@ -50,7 +53,21 @@ export const callAPI = async (
 export const axiosCreate = axios.create({
 	baseURL: baseURL,
 	headers: {
-		Authorization: token !== null ? `Bearer ${token}` : "",
-		"Content-Type": "application/json",
+		Authorization: token !== null ? `Bearer ${token}` : '',
+		'Content-Type': 'application/json',
 	},
 });
+
+// resquet 3
+export const axiosCreates = (formData = false) => {
+	return axios.create({
+		baseURL: baseURL,
+		headers: {
+			Authorization:
+				token !== null ? `Bearer ${token}` : '',
+			'Content-Type': formData
+				? contentType.formData
+				: contentType.json,
+		},
+	});
+};

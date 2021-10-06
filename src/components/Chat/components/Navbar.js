@@ -1,16 +1,19 @@
-import React, { useState, Fragment } from "react";
-import { connect, useDispatch } from "react-redux";
-import { storeState } from "../../../store/reducers";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { logout } from "../../../store/actions/auth";
-import Modal from "../../../constants/Modal/Modal";
-import Form from "../../../constants/Form/Form";
+import React, { useState, Fragment } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { storeState } from '../../../store/reducers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	logout,
+	updateProfile,
+} from '../../../store/actions/auth';
+import Modal from '../../../constants/Modal/Modal';
+import Form from '../../../constants/Form/Form';
 
 const Navbar = ({ user }) => {
 	const [showProfile, setShowProfile] = useState(false);
 	const [showModal, setShowModal] = useState(true);
 	const dispatch = useDispatch();
-	user.password = "";
+
 	return (
 		<div id="navbar" className="card-shadow">
 			<h2>Chat.io</h2>
@@ -45,9 +48,21 @@ const Navbar = ({ user }) => {
 					<Modal click={() => setShowModal(false)}>
 						<Fragment key="header">Update Profile</Fragment>
 						<Fragment key="body">
-							<Form data={user} />
+							<Form
+								data={{
+									firstName: user.firstName,
+									lastName: user.lastName,
+									email: user.email,
+									password: '',
+									gender: user.gender,
+									avatar: null,
+								}}
+								asynAction={updateProfile}
+								formData={true}
+								name={'UPDATE'}
+							/>
 						</Fragment>
-						<Fragment key="footer">Modal Footer 3</Fragment>
+						<Fragment key="footer"></Fragment>
 					</Modal>
 				)}
 			</div>

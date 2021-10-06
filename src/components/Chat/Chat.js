@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import { storeState } from "../../store/reducers";
-import Navbar from "./components/Navbar";
+import React from 'react';
+import { connect } from 'react-redux';
+import { storeState } from '../../store/reducers';
+import Navbar from './components/Navbar';
 
 const Chat = ({ authReducer = storeState.authReducer }) => {
 	return (

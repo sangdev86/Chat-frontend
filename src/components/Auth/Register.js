@@ -1,9 +1,8 @@
-import React from "react";
-import registerImage from "../../assets/img/register.svg";
-import { Link } from "react-router-dom";
-
-import { register } from "../../store/actions/auth";
-import Form from "../../constants/Form/Form";
+import React from 'react';
+import registerImage from '../../assets/img/register.svg';
+import { Link } from 'react-router-dom';
+import { register } from '../../store/actions/auth';
+import Form from '../../constants/Form/Form';
 
 const Register = ({ history }) => {
 	return (
@@ -14,17 +13,18 @@ const Register = ({ history }) => {
 						<img src={registerImage} alt="register" />
 					</div>
 					<div id="form-section">
-						<h2>Welcome back</h2>
+						<h2>Hello, friend</h2>
 						<Form
 							data={{
-								firstName: "",
-								lastName: "",
-								email: "",
-								password: "",
-								gender: "male",
+								firstName: '',
+								lastName: '',
+								email: '',
+								password: '',
+								gender: 'male',
 							}}
 							asynAction={register}
 							history={history}
+							name={'Register'}
 						/>
 						<p>
 							Already have an account?

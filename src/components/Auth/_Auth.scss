@@ -34,14 +34,15 @@
 					max-width: 100%;
 				}
 			}
+			h2 {
+				text-align: center;
+			}
 			#form-section {
 				min-width: 100%;
 				@include MediaQuery(800px, min) {
 					min-width: 300px;
 				}
-				h2 {
-					text-align: center;
-				}
+
 				form {
 					padding: 20px;
 					.input-field {

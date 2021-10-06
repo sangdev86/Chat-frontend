@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Modal = (props) => {
 	const findByKey = (name) =>
@@ -9,7 +9,7 @@ const Modal = (props) => {
 	const closeModal = (e) => {
 		e.stopPropagation();
 
-		if (e.target.classList.contains("modal-close")) {
+		if (e.target.classList.contains('modal-close')) {
 			return props.click();
 		}
 	};
@@ -22,19 +22,19 @@ const Modal = (props) => {
 			<div className="modal-wrapper">
 				<div className="modal-container">
 					<div className="modal-header">
-						{findByKey("header")}
+						{findByKey('header')}
 					</div>
 					<div className="modal-body">
-						{findByKey("body")}
+						{findByKey('body')}
 					</div>
 					<div className="modal-footer">
 						<button
 							className="modal-close"
 							onClick={closeModal}
 						>
-							CLOSE
+							X
 						</button>
-						{findByKey("footer")}
+						{findByKey('footer')}
 					</div>
 				</div>
 			</div>

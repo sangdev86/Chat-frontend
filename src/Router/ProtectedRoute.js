@@ -1,7 +1,7 @@
-import React from "react";
-import { Redirect, Route } from "react-router";
-import { connect } from "react-redux";
-import { storeState } from "../store/reducers";
+import React from 'react';
+import { Redirect, Route } from 'react-router';
+import { connect } from 'react-redux';
+import { storeState } from '../store/reducers';
 
 const ProtectedRoute = ({
 	component: Component,

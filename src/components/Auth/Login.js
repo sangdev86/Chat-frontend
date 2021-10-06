@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import loginImage from "../../assets/img/login.svg";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "../../store/actions/auth";
+import React, { useState } from 'react';
+import loginImage from '../../assets/img/login.svg';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { login } from '../../store/actions/auth';
 
 const Login = ({ history }) => {
 	const [user, setUser] = useState({
-		email: "",
-		password: "",
+		email: '',
+		password: '',
 	});
 	const dispatch = useDispatch();
 

@@ -1,13 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 //base
-@import "./assets/scss";
+@import './assets/scss';
 
 //component
-@import "./components/Auth/Auth";
-@import "./components/Chat/Chat";
-@import "./constants/Modal/Modal";
+@import './components/Auth/Auth';
+@import './components/Chat/Chat';
+
+//constants
+@import './constants/Form/Form';
+@import './constants/Modal/Modal';
+
 body {
-	font-family: "Roboto", sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 .App {

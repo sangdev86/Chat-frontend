@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-const Form = ({ data, asynAction, history }) => {
+const Form = ({ data, asynAction, name, history }) => {
 	const [user, setUser] = useState(data);
 	const obj = {
-		firstName: { name: "Frist Name", type: "text" },
-		lastName: { name: "Last Name", type: "text" },
-		email: { name: "Eamil", type: "text" },
-		password: { name: "Password", type: "password" },
-		gender: { name: "Gender", type: "option" },
-		avatar: { name: "Avatar", type: "file" },
+		firstName: { name: 'Frist Name', type: 'text' },
+		lastName: { name: 'Last Name', type: 'text' },
+		email: { name: 'Eamil', type: 'text' },
+		password: { name: 'Password', type: 'password' },
+		gender: { name: 'Gender', type: 'option' },
+		avatar: { name: 'avatar', type: 'file' },
 	};
+
 	const dispatch = useDispatch();
 
 	const value = (e) => {
@@ -33,9 +34,9 @@ const Form = ({ data, asynAction, history }) => {
 				}
 			}
 		}
-		console.log(arr);
+		// console.log(arr);
 		return arr.map((property, index) => {
-			if (property === "gender") {
+			if (property === 'gender') {
 				return (
 					<div key={index} className="input-field mb-1">
 						<select
@@ -52,13 +53,19 @@ const Form = ({ data, asynAction, history }) => {
 						</select>
 					</div>
 				);
-			} else if (property === "avatar") {
+			} else if (property === 'avatar') {
 				return (
 					<div key={index} className="input-field mb-1">
 						<input
-							onChange={(e) => handleChange(property, e)}
+							onChange={(e) =>
+								setUser({
+									...user,
+									avatar: e.target.files[0],
+								})
+							}
 							// value={user[`${property}`]}
-							type="file"
+							name={`${property}`}
+							type={obj[`${property}`].type}
 						/>
 					</div>
 				);
@@ -70,7 +77,7 @@ const Form = ({ data, asynAction, history }) => {
 							value={user[`${property}`]}
 							name={`${property}`}
 							placeholder={obj[`${property}`].name}
-							required="required"
+							// required="required"
 							type={obj[`${property}`].type}
 						/>
 					</div>
@@ -78,15 +85,17 @@ const Form = ({ data, asynAction, history }) => {
 			}
 		});
 	};
+
 	const submitForm = (e) => {
 		e.preventDefault();
-		console.log(user);
+		console.log('user', user);
 		dispatch(asynAction(user, history));
 	};
+
 	return (
-		<form onSubmit={submitForm}>
+		<form id="form" onSubmit={submitForm}>
 			{formModel(data)}
-			{!data.avatar && <button>Login</button>}
+			<button>{name}</button>
 		</form>
 	);
 };

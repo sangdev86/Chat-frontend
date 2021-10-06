@@ -1,4 +1,4 @@
-import { axiosCreate } from "../config/axios";
+import { axiosCreate } from '../config/axios';
 
 const AuthService = {
 	login: async (body, history) => {
@@ -12,10 +12,10 @@ const AuthService = {
 			// 		console.log(err);
 			// 	});
 			await axiosCreate
-				.post("/login", body)
+				.post('/login', body)
 				.then((data) => {
 					console.log(data);
-					history.push("/");
+					history.push('/');
 					return data;
 				})
 				.catch((err) => {

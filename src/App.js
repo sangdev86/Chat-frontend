@@ -1,19 +1,19 @@
-import "./App.scss";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import Chat from "./components/Chat/Chat";
+import './App.scss';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
+import Chat from './components/Chat/Chat';
 import {
 	BrowserRouter as Router,
 	Route,
 	Switch,
-} from "react-router-dom";
-import ProtectedRoute from "./Router/ProtectedRoute";
+} from 'react-router-dom';
+import ProtectedRoute from './Router/ProtectedRoute';
 
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core';
 import {
 	faSmile,
 	faImage,
-} from "@fortawesome/free-regular-svg-icons";
+} from '@fortawesome/free-regular-svg-icons';
 import {
 	faSpinner,
 	faEllipsisV,
@@ -24,7 +24,7 @@ import {
 	faUpload,
 	faTimes,
 	faBell,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
 library.add(
 	faSmile,

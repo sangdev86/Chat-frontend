@@ -1,14 +1,14 @@
-import { getLocalStorage } from "../../config/localStore";
-import { AUTH } from "../actions/type";
+import { getLocalStorage } from '../../config/localStore';
+import { AUTH } from '../actions/type';
 
 export const initialState = {
-	user: JSON.parse(getLocalStorage("user")) || {},
-	token: getLocalStorage("token") || "",
-	isLoggedIn: !!getLocalStorage("user"),
+	user: JSON.parse(getLocalStorage('user')) || {},
+	token: getLocalStorage('token') || '',
+	isLoggedIn: !!getLocalStorage('user'),
 	// isLoggedIn: !getLocalStorage("user") ? false : true,
 };
 
-export const name = "authReducer";
+export const name = 'authReducer';
 export const authReducer = (
 	state = initialState,
 	action
@@ -33,9 +33,15 @@ export const authReducer = (
 			return {
 				...state,
 				user: {},
-				token: "",
+				token: '',
 				isLoggedIn: false,
 			};
+		case AUTH.UPDATE:
+			return {
+				...state,
+				user: payload.user || payload,
+			};
+
 		default:
 			return state;
 	}
