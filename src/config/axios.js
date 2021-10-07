@@ -14,7 +14,7 @@ const token = localStorage.getItem('token');
 export const callAPI = async (
 	endpoint,
 	method,
-	data,
+	data = null,
 	formData = false
 ) => {
 	const token = localStorage.getItem('token');

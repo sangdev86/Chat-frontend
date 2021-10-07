@@ -8,7 +8,6 @@ export const initialState = {
 	// isLoggedIn: !getLocalStorage("user") ? false : true,
 };
 
-export const name = 'authReducer';
 export const authReducer = (
 	state = initialState,
 	action

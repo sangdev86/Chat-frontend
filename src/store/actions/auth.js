@@ -69,7 +69,7 @@ export const updateProfile = (body, history) => {
 					formData,
 					'formData'
 				).then((res) => {
-					console.log('res.data', res.data);
+					// console.log('res.data', res.data);
 					setLocalStorage(res.data);
 					dispatch(createAction(AUTH.UPDATE, res.data));
 				});

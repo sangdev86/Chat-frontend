@@ -1,17 +1,17 @@
 import React, { useState, Fragment } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { storeState } from '../../../store/reducers';
+import { storeState } from '../../../../store/reducers';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	logout,
 	updateProfile,
-} from '../../../store/actions/auth';
-import Modal from '../../../constants/Modal/Modal';
-import Form from '../../../constants/Form/Form';
+} from '../../../../store/actions/auth';
+import Modal from '../../../../constants/Modal/Modal';
+import Form from '../../../../constants/Form/Form';
 
 const Navbar = ({ user }) => {
 	const [showProfile, setShowProfile] = useState(false);
-	const [showModal, setShowModal] = useState(true);
+	const [showModal, setShowModal] = useState(false);
 	const dispatch = useDispatch();
 
 	return (

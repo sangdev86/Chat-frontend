@@ -3,8 +3,14 @@
 @import './assets/scss';
 
 //component
+// * AUTH
 @import './components/Auth/Auth';
+// * CHAT
 @import './components/Chat/Chat';
+// ** CHAT/
+@import './components/Chat/components/Navbar/Navbar';
+@import './components/Chat/components/FriendList/FriendList';
+@import './components/Chat/components/Friend/Friend';
 
 //constants
 @import './constants/Form/Form';
