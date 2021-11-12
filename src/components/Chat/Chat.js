@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { fetchChats } from '../../store/actions/chat';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { storeState } from '../../store/reducers';
-
 import FriendList from './components/FriendList/FriendList';
 import Messager from './components/Messenger/Messager';
 import Navbar from './components/Navbar/Navbar';
+import useSocket from './hooks/socketConnect';
 
-const Chat = ({ authReducer = storeState.authReducer }) => {
+const Chat = ({ store = storeState }) => {
 	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(fetchChats());
-	}, [dispatch]);
+	useSocket(store.authReducer.user, dispatch);
+
+	// useEffect(() => {
+	// 	dispatch(fetchChats())
+	// 		.then((res) => console.log(res))
+	// 		.catch((err) => console.log(err));
+	// }, [dispatch]);
 	return (
 		<div id="chat-container">
 			<Navbar />
@@ -23,9 +26,4 @@ const Chat = ({ authReducer = storeState.authReducer }) => {
 	);
 };
 
-const mapStateToProps = (state = storeState) => {
-	return {
-		authReducer: state.authReducer,
-	};
-};
-export default connect(mapStateToProps, null)(Chat);
+export default Chat;

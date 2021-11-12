@@ -8,9 +8,14 @@
 // * CHAT
 @import './components/Chat/Chat';
 // ** CHAT/
-@import './components/Chat/components/Navbar/Navbar';
-@import './components/Chat/components/FriendList/FriendList';
+@import './components/Chat/components/ChatHeader/ChatHeader';
 @import './components/Chat/components/Friend/Friend';
+@import './components/Chat/components/FriendList/FriendList';
+@import './components/Chat/components/Message/Message';
+@import './components/Chat/components/MessageBox/MessageBox';
+@import './components/Chat/components/MessageInput/MessageInput';
+@import './components/Chat/components/Messenger/Messenger';
+@import './components/Chat/components/Navbar/Navbar';
 
 //constants
 @import './constants/Form/Form';

@@ -1,13 +1,16 @@
-import './App.scss';
+import React from 'react';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Chat from './components/Chat/Chat';
+import ProtectedRoute from './components/Router/ProtectedRoute';
+
 import {
 	BrowserRouter as Router,
 	Route,
 	Switch,
 } from 'react-router-dom';
-import ProtectedRoute from './Router/ProtectedRoute';
+
+import './App.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -25,7 +28,6 @@ import {
 	faTimes,
 	faBell,
 } from '@fortawesome/free-solid-svg-icons';
-
 library.add(
 	faSmile,
 	faImage,
@@ -46,16 +48,10 @@ function App() {
 			<div className="App">
 				<Switch>
 					<ProtectedRoute exact path="/" component={Chat} />
-					<Route exact path="/login" component={Login} />
+					<Route path="/login" component={Login} />
+					<Route path="/register" component={Register} />
 					<Route
-						exact
-						path="/register"
-						component={Register}
-					/>
-					<Route
-						render={() => {
-							<h1>404 Page not found</h1>;
-						}}
+						render={() => <h1>404 page not found</h1>}
 					/>
 				</Switch>
 			</div>

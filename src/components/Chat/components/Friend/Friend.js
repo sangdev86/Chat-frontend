@@ -8,6 +8,7 @@ const Friend = ({ chat, currentChat, click }) => {
 	const lastMessage = () => {
 		if (chat.Messages.length === 0) return '';
 		const message = chat.Messages[chat.Messages.length - 1];
+		// const message = chat.Messages[0];
 		return message.type === 'image'
 			? 'image uploaded'
 			: message.message;
@@ -26,7 +27,7 @@ const Friend = ({ chat, currentChat, click }) => {
 				/>
 				<div className="friend-info">
 					<h4 className="m-0">
-						{chat.Users[0].firstName}
+						{chat.Users[0].firstName}{' '}
 						{chat.Users[0].lastName}
 					</h4>
 					<h5 className="m-0">{lastMessage()}</h5>

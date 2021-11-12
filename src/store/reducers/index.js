@@ -14,7 +14,16 @@ export const rootReducer = combineReducers({
 	chatReducer,
 });
 
+// interface
 export const storeState = {
 	authReducer: authState,
 	chatReducer: chatState,
+};
+
+export const mapStateToProps = (state = storeState) => {
+	return {
+		store: state,
+		authReducer: state.authReducer,
+		chatReducer: state.chatReducer,
+	};
 };
