@@ -7,11 +7,11 @@ import {
 	onlineFriend,
 	onlineFriends,
 	reciveMessage,
+	senderTyping,
 	setSocket,
 } from '../../../store/actions/chat';
 
 function useSocket(user, dispatch) {
-	// console.log("user:", user);
 	useEffect(() => {
 		dispatch(fetchChats())
 			.then(() => {
@@ -19,9 +19,10 @@ function useSocket(user, dispatch) {
 				dispatch(setSocket(socket));
 
 				socket.emit('join', user);
-				socket.on('typing', (user) => {});
+				socket.on('typing', (typing) => {
+					dispatch(senderTyping(typing));
+				});
 				socket.on('friends', (friendsId) => {
-					console.log('friends', friendsId);
 					dispatch(onlineFriends(friendsId));
 				});
 				socket.on('online', (user) => {
@@ -31,11 +32,12 @@ function useSocket(user, dispatch) {
 					dispatch(offlineFriend(user));
 				});
 				socket.on('received', (message) => {
+					console.log('received');
 					dispatch(reciveMessage(message, user.id));
 				});
 			})
 			.catch((err) => console.log(err));
-	}, [dispatch]);
+	}, [dispatch, user]);
 }
 
 export default useSocket;

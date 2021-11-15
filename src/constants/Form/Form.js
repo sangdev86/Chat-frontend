@@ -88,7 +88,7 @@ const Form = ({ data, asynAction, name, history }) => {
 
 	const submitForm = (e) => {
 		e.preventDefault();
-		console.log('user', user);
+		// console.log('user', user);
 		dispatch(asynAction(user, history));
 	};
 

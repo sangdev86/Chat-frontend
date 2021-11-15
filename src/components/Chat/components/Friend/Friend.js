@@ -1,5 +1,6 @@
 import React from 'react';
 import { userStatus } from '../../../../utils/helpers';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Friend = ({ chat, currentChat, click }) => {
 	const isChatOpened = () => {
@@ -9,9 +10,14 @@ const Friend = ({ chat, currentChat, click }) => {
 		if (chat.Messages.length === 0) return '';
 		const message = chat.Messages[chat.Messages.length - 1];
 		// const message = chat.Messages[0];
-		return message.type === 'image'
-			? 'image uploaded'
-			: message.message;
+		return message.type === 'image' ? (
+			<FontAwesomeIcon
+				icon={['far', 'image']}
+				className="fa-icon"
+			/>
+		) : (
+			message.message
+		);
 	};
 	return (
 		<div

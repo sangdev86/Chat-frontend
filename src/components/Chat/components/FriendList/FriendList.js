@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { setCurrentChat } from '../../../../store/actions/chat';
-import { storeState } from '../../../../store/reducers';
 import Friend from '../Friend/Friend';
 
-const FriendList = ({
-	chatReducer = storeState.authReducer,
-}) => {
+const FriendList = ({ chatReducer }) => {
 	const dispatch = useDispatch();
 
 	const { chats, currentChat } = chatReducer;
+
 	const openChat = (chat) => {
 		dispatch(setCurrentChat(chat));
 	};
@@ -40,7 +38,7 @@ const FriendList = ({
 		</div>
 	);
 };
-const mapStateToProps = (states = storeState) => {
+const mapStateToProps = (states) => {
 	return {
 		chatReducer: states.chatReducer,
 	};

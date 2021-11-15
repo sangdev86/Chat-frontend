@@ -19,7 +19,10 @@ const Messager = ({
 				<div id="messenger-wrap">
 					<ChatHeader currentChat={currentChat} />
 					<hr />
-					<MessageBox currentChat={currentChat} />
+					<ComponentSetUp
+						component={MessageBox}
+						currentChat={currentChat}
+					/>
 					<ComponentSetUp
 						component={MessageInput}
 						currentChat={currentChat}

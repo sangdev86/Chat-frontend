@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const Message = ({ user, currentChat, index, message }) => {
-	// useEffect(() => {
-	// 	console.log('user', user);
-	// });
 	const determineMargin = () => {
 		if (index + 1 === currentChat.Messages.length) return;
 

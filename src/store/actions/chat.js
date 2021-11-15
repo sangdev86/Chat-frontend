@@ -29,6 +29,23 @@ export const setCurrentChat = (chat) => {
 		dispatch(createAction(CHAT.SET_CURRENT_CHAT, chat));
 	};
 };
+export const uploadImageMessage = (data, callback) =>
+	(async () => {
+		try {
+			await callAPI(
+				'/chats/upload-image',
+				'POST',
+				data,
+				'formData'
+			)
+				.then(({ data }) => {
+					callback(data.url);
+				})
+				.catch();
+		} catch (e) {
+			console.log(e);
+		}
+	})();
 
 export const onlineFriends = (friendsId) => {
 	return (dispatch) => {
@@ -60,3 +77,6 @@ export const reciveMessage =
 			})
 		);
 	};
+
+export const senderTyping = (typing) => (dispatch) =>
+	dispatch(createAction(CHAT.SENDER_TYPING, typing));

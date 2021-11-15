@@ -6,6 +6,7 @@ export const initialState = {
 	socket: {},
 	newMessage: { chatId: null, seen: null },
 	scrollBottom: 0,
+	senderTyping: { typing: false },
 };
 
 export const chatReducer = (
@@ -142,6 +143,9 @@ export const chatReducer = (
 								...[message],
 							],
 						};
+						if (scrollBottom === state.scrollBottom) {
+							scrollBottom = state.scrollBottom + 1;
+						}
 					}
 
 					// return chats update
@@ -159,6 +163,7 @@ export const chatReducer = (
 					chats: chatsUpdate,
 					currentChat: currentChatUpdate,
 					newMessage,
+					senderTyping: { typing: false },
 				};
 			}
 			return {
@@ -167,6 +172,28 @@ export const chatReducer = (
 				currentChat: currentChatUpdate,
 				newMessage: newMessage,
 				scrollBottom,
+				senderTyping: { typing: false },
+			};
+		}
+
+		case CHAT.SENDER_TYPING:
+			if (payload.typing) {
+				return {
+					...state,
+					senderTyping: payload,
+					scrollBottom: state.scrollBottom + 1,
+				};
+			}
+			return { ...state, senderTyping: payload };
+
+		case CHAT.SET_CHAT_LOGOUT: {
+			return {
+				...state,
+				chats: [],
+				currentChat: {},
+				socket: {},
+				newMessage: { chatId: null, seen: null },
+				scrollBottom: 0,
 			};
 		}
 		default:

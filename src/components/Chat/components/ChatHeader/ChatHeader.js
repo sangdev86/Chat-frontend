@@ -4,12 +4,12 @@ import { userStatus } from '../../../../utils/helpers';
 const ChatHeader = ({ currentChat }) => {
 	const [showChatOptions, SetShowChatOptions] =
 		useState(false);
-	const [showAddFriendModal, SetshowAddFriendModal] =
-		useState(false);
-	const [showLeaveChatModal, SetshowLeaveChatModal] =
-		useState(false);
-	const [showDeleteChatModal, SetShowDeleteChatModal] =
-		useState(false);
+	// const [showAddFriendModal, SetshowAddFriendModal] =
+	// 	useState(false);
+	// const [showLeaveChatModal, SetshowLeaveChatModal] =
+	// 	useState(false);
+	// const [showDeleteChatModal, SetShowDeleteChatModal] =
+	// 	useState(false);
 
 	return (
 		<Fragment>

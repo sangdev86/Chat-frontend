@@ -1,7 +1,7 @@
 import { createAction } from '.';
 import { callAPI } from '../../config/axios';
 import { setLocalStorage } from '../../config/localStore';
-import { AUTH } from './type';
+import { AUTH, CHAT } from './type';
 
 export const login = (body, history) => {
 	return (dispatch) => {
@@ -45,9 +45,10 @@ export const register = (body, history) => {
 export const logout = () => (dispatch) => {
 	localStorage.clear();
 	dispatch(createAction(AUTH.LOGOUT));
+	dispatch(createAction(CHAT.SET_CHAT_LOGOUT));
 };
 
-export const updateProfile = (body, history) => {
+export const updateProfile = (body) => {
 	if (body.password === '') {
 		delete body.password;
 	}
@@ -59,7 +60,7 @@ export const updateProfile = (body, history) => {
 	for (const key in body) {
 		formData.append(key, body[key]);
 	}
-	console.log('formData', formData);
+	// console.log('formData', formData);
 	return (dispatch) => {
 		(async () => {
 			try {
