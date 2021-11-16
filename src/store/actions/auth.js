@@ -61,7 +61,7 @@ export const updateProfile = (body) => {
 		formData.append(key, body[key]);
 	}
 	// console.log('formData', formData);
-	return (dispatch) => {
+	return (dispatch) =>
 		(async () => {
 			try {
 				await callAPI(
@@ -78,5 +78,4 @@ export const updateProfile = (body) => {
 				console.log(err);
 			}
 		})();
-	};
 };
