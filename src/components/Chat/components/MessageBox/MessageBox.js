@@ -1,23 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 import { storeState } from '../../../../store/reducers';
 import Message from '../Message/Message';
-// import typing from '../../../../assets/sound/typing.mp3';
+import { useDispatch } from 'react-redux';
 
 import { audio } from '../../../../assets/sound/audio';
+import { paginateMessage } from '../../../../store/actions/chat';
 
 const MessageBox = ({
 	currentChat,
 	store = storeState,
 }) => {
+	//store
 	const { user } = store.authReducer;
 	const { scrollBottom, senderTyping } = store.chatReducer;
 	const [onlyFirst, setOnlyFirst] = useState(false);
+	// audio
 	const sound = audio('typing');
-
 	const msgBox = useRef();
 	let checker = useRef(sound);
+	//state
+	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
 
-	useEffect(() => {
+	useMemo(() => {
 		if (!senderTyping.typing) {
 			setOnlyFirst(false);
 		}
@@ -48,12 +58,31 @@ const MessageBox = ({
 			scrollManual(msgBox.current.scrollHeight);
 		}, 50);
 	}, [scrollBottom]);
+
+	const handleInfinititeScroll = (e) => {
+		if (e.target.scrollTop === 0) {
+			setLoading(true);
+			const pagination = currentChat.pagination;
+			const page =
+				typeof pagination === 'undefined'
+					? 1
+					: pagination.page;
+
+			dispatch(
+				paginateMessage(currentChat.id, parseInt(page) + 1)
+			);
+		}
+	};
+
 	const scrollManual = (value) => {
 		msgBox.current.scrollTop = value;
 	};
-
 	return (
-		<div id="msg-box" ref={msgBox}>
+		<div
+			onScroll={handleInfinititeScroll}
+			id="msg-box"
+			ref={msgBox}
+		>
 			{currentChat.Messages.map((message, index) => {
 				return (
 					<Message

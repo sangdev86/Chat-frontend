@@ -80,3 +80,21 @@ export const reciveMessage =
 
 export const senderTyping = (typing) => (dispatch) =>
 	dispatch(createAction(CHAT.SENDER_TYPING, typing));
+
+export const paginateMessage = (id, page) => {
+	return (dispatch) =>
+		(async () => {
+			try {
+				await callAPI('/chats/messages', 'GET', {
+					params: {
+						id,
+						page,
+					},
+				})
+					.then((res) => console.log(res))
+					.catch((err) => console.log(err));
+			} catch (err) {
+				console.log(err);
+			}
+		})();
+};
