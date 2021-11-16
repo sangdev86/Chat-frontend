@@ -4,12 +4,12 @@ const contentType = {
 	json: 'application/json',
 	formData: 'multipart/form-data',
 	// formData: 'application/x-www-form-urlencoded',
-}
+};
 export const baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 // token
 const token = localStorage.getItem('token');
-
+const a = 1;
 // resquet 1
 export const callAPI = async (
 	endpoint,
