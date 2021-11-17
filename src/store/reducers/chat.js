@@ -196,6 +196,32 @@ export const chatReducer = (
 				scrollBottom: 0,
 			};
 		}
+		case CHAT.SCROLL_TOP_PAGINATE_MESSAGES: {
+			console.log(payload);
+			const { messages, id, pagination } = payload;
+			let currentChatUpdate = { ...state.currentChat };
+
+			const chatsUpdate = state.chats.map((chat) => {
+				if (chat.id === id) {
+					const shifted = [...messages, ...chat.Messages];
+					currentChatUpdate = {
+						...currentChatUpdate,
+						Messages: shifted,
+						Pagination: pagination,
+					};
+					return {
+						...chat,
+						Messages: shifted,
+						Pagination: pagination,
+					};
+				}
+			});
+			return {
+				...state,
+				chats: chatsUpdate,
+				currentChat: currentChatUpdate,
+			};
+		}
 		default:
 			return state;
 	}

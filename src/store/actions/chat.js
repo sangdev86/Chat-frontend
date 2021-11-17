@@ -1,12 +1,12 @@
 import { createAction } from '.';
-import { callAPI } from '../../config/axios';
+import { callAPI, params } from '../../config/axios';
 import { CHAT } from './type';
 
 export const fetchChats = () => {
 	return (dispatch) =>
 		(async () => {
 			try {
-				await callAPI('/chats', 'GET')
+				await callAPI('/chats', 'GET', null)
 					.then((res) => {
 						res.data.forEach((chat) => {
 							chat.Users.forEach((user) => {
@@ -85,13 +85,28 @@ export const paginateMessage = (id, page) => {
 	return (dispatch) =>
 		(async () => {
 			try {
-				await callAPI('/chats/messages', 'GET', {
-					params: {
-						id,
-						page,
-					},
-				})
-					.then((res) => console.log(res))
+				await callAPI(
+					'/chats/messages' + params({ id, page }),
+					'GET'
+				)
+					.then(({ data }) => {
+						const { messages, pagination } = data;
+						if (
+							typeof messages !== 'undefined' &&
+							messages.length > 0
+						) {
+							messages.reverse();
+
+							dispatch(
+								createAction(
+									CHAT.SCROLL_TOP_PAGINATE_MESSAGES,
+									{ messages, id, pagination }
+								)
+							);
+							return true;
+						}
+						return false;
+					})
 					.catch((err) => console.log(err));
 			} catch (err) {
 				console.log(err);

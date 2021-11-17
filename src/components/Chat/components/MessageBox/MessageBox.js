@@ -86,7 +86,7 @@ const MessageBox = ({
 			{currentChat.Messages.map((message, index) => {
 				return (
 					<Message
-						key={message.id}
+						key={index}
 						user={user}
 						currentChat={currentChat}
 						message={message}
