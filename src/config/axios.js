@@ -1,16 +1,24 @@
 import axios from 'axios';
 
+export const params = (objParams) => {
+	let params = '?';
+	for (const key in objParams) {
+		params += `${key}=${objParams[key]}&`;
+	}
+	return params;
+};
 const contentType = {
 	json: 'application/json',
 	formData: 'multipart/form-data',
 	// formData: 'application/x-www-form-urlencoded',
-}
+};
 export const baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 // token
 const token = localStorage.getItem('token');
 
 // resquet 1
+
 export const callAPI = async (
 	endpoint,
 	method,
@@ -18,6 +26,7 @@ export const callAPI = async (
 	formData = false
 ) => {
 	const token = localStorage.getItem('token');
+
 	try {
 		const res = await axios({
 			url: baseURL + endpoint,
@@ -33,6 +42,7 @@ export const callAPI = async (
 						: contentType.json,
 			},
 		});
+		// console.log(res);
 		const { status } = res;
 		if (status === 401) {
 			localStorage.clear();
@@ -41,7 +51,6 @@ export const callAPI = async (
 		} else {
 			return {
 				data: res.data,
-				status,
 			};
 		}
 	} catch (error) {
