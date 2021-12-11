@@ -143,9 +143,9 @@ export const chatReducer = (
 								...[message],
 							],
 						};
-						if (scrollBottom === state.scrollBottom) {
-							scrollBottom = state.scrollBottom + 1;
-						}
+						// if (scrollBottom === state.scrollBottom) {
+						// 	scrollBottom = state.scrollBottom + 1;
+						// }
 					}
 
 					// return chats update
@@ -197,7 +197,6 @@ export const chatReducer = (
 			};
 		}
 		case CHAT.SCROLL_TOP_PAGINATE_MESSAGES: {
-			console.log(payload);
 			const { messages, id, pagination } = payload;
 			let currentChatUpdate = { ...state.currentChat };
 
@@ -220,6 +219,13 @@ export const chatReducer = (
 				...state,
 				chats: chatsUpdate,
 				currentChat: currentChatUpdate,
+			};
+		}
+		case CHAT.INCREMENTSCROLL: {
+			return {
+				...state,
+				scrollBottom: state.scrollBottom + 1,
+				newMessage: { chatId: null, seen: null },
 			};
 		}
 		default:

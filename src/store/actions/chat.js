@@ -82,34 +82,36 @@ export const senderTyping = (typing) => (dispatch) =>
 	dispatch(createAction(CHAT.SENDER_TYPING, typing));
 
 export const paginateMessage = (id, page) => {
-	return (dispatch) =>
-		(async () => {
-			try {
-				await callAPI(
-					'/chats/messages' + params({ id, page }),
-					'GET'
-				)
-					.then(({ data }) => {
-						const { messages, pagination } = data;
-						if (
-							typeof messages !== 'undefined' &&
-							messages.length > 0
-						) {
-							messages.reverse();
+	try {
+		return async (dispatch) =>
+			await callAPI(
+				'/chats/messages' + params({ id, page }),
+				'GET'
+			)
+				.then(({ data }) => {
+					const { messages, pagination } = data;
 
-							dispatch(
-								createAction(
-									CHAT.SCROLL_TOP_PAGINATE_MESSAGES,
-									{ messages, id, pagination }
-								)
-							);
-							return true;
-						}
-						return false;
-					})
-					.catch((err) => console.log(err));
-			} catch (err) {
-				console.log(err);
-			}
-		})();
+					if (
+						typeof messages !== 'undefined' &&
+						messages.length > 0
+					) {
+						messages.reverse();
+
+						dispatch(
+							createAction(
+								CHAT.SCROLL_TOP_PAGINATE_MESSAGES,
+								{ messages, id, pagination }
+							)
+						);
+
+						return true;
+					}
+					return false;
+				})
+				.catch((err) => console.log(err));
+	} catch (error) {
+		console.log(error);
+	}
 };
+export const incrementScroll = () => (dispatch) =>
+	dispatch(createAction(CHAT.INCREMENTSCROLL));

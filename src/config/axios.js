@@ -16,9 +16,8 @@ export const baseURL = `${process.env.REACT_APP_BASE_URL}`;
 
 // token
 const token = localStorage.getItem('token');
-const a = 1;
-// resquet 1
 
+// resquet 1
 export const callAPI = async (
 	endpoint,
 	method,

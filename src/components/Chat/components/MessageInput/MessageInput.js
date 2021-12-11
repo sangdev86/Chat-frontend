@@ -1,15 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { storeState } from '../../../../store/reducers';
 import { useDispatch } from 'react-redux';
-import { uploadImageMessage } from '../../../../store/actions/chat';
+import {
+	incrementScroll,
+	uploadImageMessage,
+} from '../../../../store/actions/chat';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
+import arrow from './angle-double-down-solid.svg';
+
 export default function MessageInput({
 	currentChat,
 	store = storeState,
 }) {
-	const { socket } = store.chatReducer;
+	const { socket, newMessage } = store.chatReducer;
 	const { user } = store.authReducer;
 
 	const fileUpload = useRef();
@@ -20,6 +25,11 @@ export default function MessageInput({
 	const [image, setImage] = useState('');
 	const [showEmojiPicker, setShowEmojiPicker] =
 		useState(false);
+	const [
+		showNewMessageNotification,
+		setShowNewMessageNotification,
+	] = useState(false);
+
 	const handleMessage = (e) => {
 		const value = e.target.value;
 		setMessage(value);
@@ -42,6 +52,7 @@ export default function MessageInput({
 	const handleKeyDown = (e, imageUpload) => {
 		if (e.key === 'Enter') sendMessage(imageUpload);
 	};
+
 	const sendMessage = (imageUpload) => {
 		if (message.length < 1 && !imageUpload) return;
 
@@ -86,10 +97,40 @@ export default function MessageInput({
 		console.log('emojiLength', emojiLength);
 		console.log('value', value);
 	};
+
+	useEffect(() => {
+		if (
+			!newMessage.seen &&
+			newMessage.chatId === currentChat.id
+		) {
+			const msgBox = document.getElementById('msg-box');
+			if (msgBox.scrollTop > msgBox.scrollHeight * 0.3) {
+				dispatch(incrementScroll());
+			} else {
+				setShowNewMessageNotification(true);
+			}
+		} else {
+			setShowNewMessageNotification(false);
+		}
+	}, [newMessage, dispatch]);
+	const showNewMessage = () => {
+		dispatch(incrementScroll());
+		setShowNewMessageNotification(false);
+	};
 	return (
 		<div id="input-container">
 			<div id="image-upload-container">
-				<div></div>
+				<div>
+					{showNewMessageNotification ? (
+						<div
+							id="message-notification"
+							onClick={showNewMessage}
+						>
+							<img src={arrow} className="arrow" />
+							<p className="m-0">New message</p>
+						</div>
+					) : null}
+				</div>
 				<div id="image-upload">
 					{image.name ? (
 						<div id="image-details">

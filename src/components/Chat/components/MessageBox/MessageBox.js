@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import { audio } from '../../../../assets/sound/audio';
 import { paginateMessage } from '../../../../store/actions/chat';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const MessageBox = ({
 	currentChat,
 	store = storeState,
@@ -25,8 +25,14 @@ const MessageBox = ({
 	let checker = useRef(sound);
 	//state
 	const [loading, setLoading] = useState(false);
-	const dispatch = useDispatch();
+	const [scrollUp, setScrollUp] = useState(0);
 
+	const dispatch = useDispatch();
+	// callback
+	const scrollManual = (value) => {
+		msgBox.current.scrollTop = value;
+	};
+	// sound typing
 	useMemo(() => {
 		if (!senderTyping.typing) {
 			setOnlyFirst(false);
@@ -53,16 +59,42 @@ const MessageBox = ({
 		}
 	};
 
+	// open and scoll boottom
 	useEffect(() => {
-		setTimeout(() => {
-			scrollManual(msgBox.current.scrollHeight);
-		}, 50);
+		if (!senderTyping.typing) {
+			setTimeout(() => {
+				scrollManual(msgBox.current.scrollHeight);
+			}, 50);
+		}
 	}, [scrollBottom]);
+
+	// scroll top pagination page
+
+	useEffect(() => {
+		if (scrollUp !== 0) {
+			setTimeout(() => {
+				scrollManual(
+					Math.ceil(msgBox.current.scrollHeight * 0.2)
+				);
+			}, 400);
+		}
+	}, [scrollUp]);
+
+	// 1/3 scroll bootoom
+	useEffect(() => {
+		if (
+			senderTyping.typing &&
+			msgBox.current.scrollTop >
+				msgBox.current.scrollHeight * 0.3
+		) {
+			scrollManual(msgBox.current.scrollHeight);
+		}
+	}, [senderTyping]);
 
 	const handleInfinititeScroll = (e) => {
 		if (e.target.scrollTop === 0) {
 			setLoading(true);
-			const pagination = currentChat.pagination;
+			const pagination = currentChat.Pagination;
 			const page =
 				typeof pagination === 'undefined'
 					? 1
@@ -70,19 +102,33 @@ const MessageBox = ({
 
 			dispatch(
 				paginateMessage(currentChat.id, parseInt(page) + 1)
-			);
+			)
+				.then((res) => {
+					if (res) {
+						setScrollUp(scrollUp + 1);
+					}
+					setTimeout(() => {
+						setLoading(false);
+					}, 400);
+				})
+				.catch(() => {
+					setLoading(false);
+				});
 		}
 	};
 
-	const scrollManual = (value) => {
-		msgBox.current.scrollTop = value;
-	};
 	return (
 		<div
 			onScroll={handleInfinititeScroll}
 			id="msg-box"
 			ref={msgBox}
 		>
+			{loading ? (
+				<FontAwesomeIcon
+					icon="spinner"
+					className="fa-spin"
+				/>
+			) : null}
 			{currentChat.Messages.map((message, index) => {
 				return (
 					<Message
@@ -97,7 +143,10 @@ const MessageBox = ({
 
 			{HandleTyping() ? (
 				<>
-					<div className="message">
+					<div
+						className="message "
+						style={{ marginTop: '5px' }}
+					>
 						<div className="other-person">
 							<div className="m-0 typing">
 								<div>
